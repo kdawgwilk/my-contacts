@@ -1,3 +1,65 @@
-Hello, {{ user.username }}!
+<div class="mui-row">
+    <div class="mui-col-md-6 mui-col-md-offset-3">
+        <div class="mui-panel" style="margin-top: 300px;">
 
-<a href="/logout" class="mui-btn mui-btn--raised">Logout</a>
+            Hello, {{ user.username }}!
+
+            <a href="/logout" class="mui-btn mui-btn--raised mui--pull-right">Logout</a>
+
+            <table class="mui-table mui-table--bordered">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone #</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <form method="POST" action="/contacts" class="mui-form">
+                        <tr>
+                            <td>
+                                <div class="mui-textfield mui-textfield--float-label">
+                                    <input type="text" name="firstName" required>
+                                    <label>First Name</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mui-textfield mui-textfield--float-label">
+                                    <input type="text" name="lastName" required>
+                                    <label>Last Name</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mui-textfield mui-textfield--float-label">
+                                    <input type="email" name="email" required>
+                                    <label>Email</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mui-textfield mui-textfield--float-label">
+                                    <input type="tel" name="phone" required>
+                                    <label>Phone #</label>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="submit" class="mui-btn mui-btn--raised mui-btn--primary">Add</button>
+                            </td>
+                        </tr>
+                    </form>
+                    {{#each contacts}}
+                    <tr>
+                        <td>{{ this.firstName }}</td>
+                        <td>{{ this.lastName }}</td>
+                        <td>{{ this.email }}</td>
+                        <td>{{ this.phone }}</td>
+                        {{!-- This needs to be a DELETE method --}}
+                        <td><a href="/contacts/{{ this._id }}" class="mui-btn mui-btn--danger">Delete</a></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

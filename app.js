@@ -10,6 +10,7 @@ const session       = require('express-session')
 
 const contacts      = require('./routes/contacts')
 const auth          = require('./routes/auth')
+const Contact       = require('./models/contact')
 
 // connect to your local DB
 // mongod
@@ -46,7 +47,16 @@ app.use(auth)
 
 app.get('/', function (req, res) {
     if (req.user) {
-        res.render('index', { user: req.user })
+        Contact.find({ userId: req.user._id }, function (err, contacts) {
+            if (err) {
+                res.send(err)
+            } else {
+                res.render('index', { 
+                    user: req.user,
+                    contacts: contacts
+                })        
+            }
+        })
     } else {
         res.redirect('/login')
     }

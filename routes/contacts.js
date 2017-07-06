@@ -28,13 +28,19 @@ router.get('/contacts/:id', function (req, res) {
 // Create
 router.post('/contacts', function (req, res) {
     const contact = new Contact(req.body)
+    if (req.user) {
+        contact.userId = req.user._id
+    } else {
+        res.status(401)
+    }
 
     contact.save(function (err) {
         if (err) {
-            res.json(err)
+            res.send(err)
         } else {
-            res.status(201)
-            res.json(contact)
+            // res.status(201)
+            // res.json(contact)
+            res.redirect('/')
         }
     })
 })
