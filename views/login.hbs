@@ -1,0 +1,21 @@
+<div class="mui-row">
+    <div class="mui-col-md-4 mui-col-md-offset-4">
+        <div class="mui-panel" style="margin-top: 300px;">
+            {{#if message }}
+                <div class="error">{{ message }}</div>
+            {{/if }}
+            <form method="POST" action="/login" class="mui-form">
+                <legend>Login</legend>
+                <div class="mui-textfield mui-textfield--float-label">
+                    <input type="text" name="username">
+                    <label>Username</label>
+                </div>
+                <div class="mui-textfield mui-textfield--float-label">
+                    <input type="password" name="password">
+                    <label>Password</label>
+                </div>
+                <button type="submit" class="mui-btn mui-btn--raised mui-btn--primary">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
