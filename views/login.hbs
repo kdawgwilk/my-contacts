@@ -7,14 +7,15 @@
             <form method="POST" action="/login" class="mui-form">
                 <legend>Login</legend>
                 <div class="mui-textfield mui-textfield--float-label">
-                    <input type="text" name="username">
+                    <input type="text" name="username" required>
                     <label>Username</label>
                 </div>
                 <div class="mui-textfield mui-textfield--float-label">
-                    <input type="password" name="password">
+                    <input type="password" name="password" required>
                     <label>Password</label>
                 </div>
                 <button type="submit" class="mui-btn mui-btn--raised mui-btn--primary">Login</button>
+                <a href="/signup" class="mui-btn mui-btn--raised">Sign up</a>
             </form>
         </div>
     </div>
