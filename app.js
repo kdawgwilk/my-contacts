@@ -45,7 +45,11 @@ app.use(contacts)
 app.use(auth)
 
 app.get('/', function (req, res) {
-    res.json('IT WORKS!')
+    if (req.user) {
+        res.render('index', { user: req.user })
+    } else {
+        res.redirect('/login')
+    }
 })
 
 

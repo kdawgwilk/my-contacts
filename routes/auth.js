@@ -5,15 +5,32 @@ const passport = require('passport')
 const User = require('../models/user')
 
 router.get('/login', function (req, res) {
-    res.render('login')
+    if (req.user) {
+        res.redirect('/')
+    } else {
+        res.render('login')
+    }
 })
 
 router.post('/login', passport.authenticate('local'), function(req, res) {
-    res.redirect('/')
+    if (req.user) {
+        res.redirect('/')
+    } else {
+        res.render('login', { message: 'Incorrect username or password!' })
+    }
+})
+
+router.get('/logout', function (req, res) {
+    req.logout()
+    res.redirect('/login')
 })
 
 router.get('/signup', function (req, res) {
-    res.render('signup')
+    if (req.user) {
+        res.redirect('/')
+    } else {
+        res.render('signup')
+    }
 })
 
 router.post('/signup', function (req, res) {
@@ -24,8 +41,8 @@ router.post('/signup', function (req, res) {
 
         passport.authenticate('local')(req, res, function () {
             res.redirect('/')
-        });
-    });
+        })
+    })
 })
 
 module.exports = router
