@@ -54,10 +54,14 @@ app.get('/', function (req, res) {
                 const selectedId = req.query.selectedId
                 if (selectedId) {
                     Contact.findById(selectedId, (err, contact) => {
-                        res.render('index', { 
+                        var selectedContact
+                        if (contact.userId.equals(req.user._id)) {
+                            selectedContact = contact
+                        }
+                        res.render('index', {
                             user: req.user,
                             contacts: contacts,
-                            selectedContact: contact
+                            selectedContact: selectedContact
                         })
                     })
                 } else {
