@@ -3,6 +3,7 @@ const router = express.Router()
 const passport = require('passport')
 
 const User = require('../models/user')
+const gmail = require('../config/gmail')
 
 router.get('/login', function (req, res) {
     if (req.user) {
@@ -38,6 +39,23 @@ router.post('/signup', function (req, res) {
         if (err) {
             return res.render('signup', { message: err })
         }
+
+        // setup email data with unicode symbols
+        let mailOptions = {
+            from: '"Kaden Wilkinson 👻" <no-reply@kadenwilkinson.com>', // sender address
+            to: user.username, // list of receivers
+            subject: 'Welcome to our Contacts App', // Subject line
+            text: 'Hello world ?', // plain text body
+            html: '<b>Hello world ?</b>' // html body
+        }
+
+        // send mail with defined transport object
+        gmail.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log(error)
+            }
+            console.log('Message %s sent: %s', info.messageId, info.response)
+        })
 
         passport.authenticate('local')(req, res, function () {
             res.redirect('/')

@@ -12,6 +12,8 @@ const contacts      = require('./routes/contacts')
 const auth          = require('./routes/auth')
 const Contact       = require('./models/contact')
 
+const gmail         = require('./config/gmail')
+
 // connect to your local DB
 // mongod
 mongoose.connect('mongodb://localhost/MyContacts', {
