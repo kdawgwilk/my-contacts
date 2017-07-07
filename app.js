@@ -51,10 +51,22 @@ app.get('/', function (req, res) {
             if (err) {
                 res.send(err)
             } else {
-                res.render('index', { 
-                    user: req.user,
-                    contacts: contacts
-                })        
+                const selectedId = req.query.selectedId
+                if (selectedId) {
+                    Contact.findById(selectedId, (err, contact) => {
+                        res.render('index', { 
+                            user: req.user,
+                            contacts: contacts,
+                            selectedContact: contact
+                        })
+                    })
+                } else {
+                    res.render('index', { 
+                        user: req.user,
+                        contacts: contacts
+                    })
+                }
+                        
             }
         })
     } else {
